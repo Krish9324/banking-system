@@ -87,6 +87,9 @@ Desktop.ini
 # Serverless directories
 .serverless/
 
+# Vercel
+.vercel
+
 # TernJS port file
 .tern-port
 
