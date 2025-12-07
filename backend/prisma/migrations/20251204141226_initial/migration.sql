@@ -1,10 +1,7 @@
--- CreateEnum
 CREATE TYPE "UserRole" AS ENUM ('CUSTOMER', 'BANKER');
 
--- CreateEnum
 CREATE TYPE "TransactionType" AS ENUM ('DEPOSIT', 'WITHDRAW');
 
--- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
@@ -16,7 +13,6 @@ CREATE TABLE "User" (
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "Account" (
     "id" SERIAL NOT NULL,
     "accountNumber" TEXT NOT NULL,
@@ -27,7 +23,6 @@ CREATE TABLE "Account" (
     CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "Transaction" (
     "id" SERIAL NOT NULL,
     "type" "TransactionType" NOT NULL,
@@ -38,7 +33,6 @@ CREATE TABLE "Transaction" (
     CONSTRAINT "Transaction_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
 CREATE TABLE "Session" (
     "id" SERIAL NOT NULL,
     "token" TEXT NOT NULL,
@@ -49,20 +43,14 @@ CREATE TABLE "Session" (
     CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
--- CreateIndex
 CREATE UNIQUE INDEX "Account_accountNumber_key" ON "Account"("accountNumber");
 
--- CreateIndex
 CREATE UNIQUE INDEX "Session_token_key" ON "Session"("token");
 
--- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
 ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
