@@ -1,6 +1,3 @@
-// SIMPLER CORS FIX - Use this if the main one doesn't work
-// Replace the content of api/index.js with this if needed
-
 const express = require("express");
 const cors = require("cors");
 const authRoutes = require("../src/routes/authRoutes");
@@ -9,7 +6,6 @@ const bankerRoutes = require("../src/routes/bankerRoutes");
 
 const app = express();
 
-// SIMPLEST CORS - Allow everything (restrict later)
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
