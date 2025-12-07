@@ -3,7 +3,6 @@ const crypto = require("crypto");
 const prisma = require("../prismaClient");
 
 function generateAccessToken() {
-  // 36-char random alphanumeric
   return crypto.randomBytes(18).toString("hex").slice(0, 36);
 }
 
@@ -34,7 +33,7 @@ async function signup(req, res) {
         email,
         password: hashed,
         role,
-        // For customers you might want to auto-create an account
+        
         ...(role === "CUSTOMER"
           ? {
               accounts: {
@@ -48,7 +47,7 @@ async function signup(req, res) {
       },
     });
   } catch (err) {
-    // Handle race condition / unique constraint error from Prisma
+    
     if (err.code === "P2002") {
       return res.status(409).json({ message: "Email already in use" });
     }
