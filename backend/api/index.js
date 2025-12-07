@@ -6,10 +6,8 @@ const bankerRoutes = require("../src/routes/bankerRoutes");
 
 const app = express();
 
-// CORS configuration - More permissive for Vercel serverless
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
@@ -18,11 +16,10 @@ const corsOptions = {
       "http://localhost:3000",
     ];
     
-    // Allow if origin is in list, or allow all for now (can restrict later)
     if (allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
       callback(null, true);
     } else {
-      callback(null, true); // Allow all for debugging - restrict in production
+      callback(null, true); 
     }
   },
   credentials: true,
@@ -33,13 +30,10 @@ const corsOptions = {
   preflightContinue: false,
 };
 
-// Handle preflight requests FIRST (before CORS middleware)
 app.options("*", cors(corsOptions));
 
-// Apply CORS middleware to all routes
 app.use(cors(corsOptions));
 
-// Add manual CORS headers as fallback
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   const allowedOrigins = [
@@ -74,7 +68,5 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/customer", customerRoutes);
 app.use("/api/banker", bankerRoutes);
-
-// Export the Express app as a serverless function
 module.exports = app;
 
