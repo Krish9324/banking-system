@@ -10,7 +10,6 @@ const bankerRoutes = require("./routes/bankerRoutes");
 
 const app = express();
 
-// CORS configuration for Render deployment
 const corsOptions = {
   origin: [
     "https://banking-system-pearl.vercel.app",
@@ -23,10 +22,8 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-// Apply CORS
 app.use(cors(corsOptions));
 
-// Handle preflight requests
 app.options("*", cors(corsOptions));
 
 app.use(express.json());
